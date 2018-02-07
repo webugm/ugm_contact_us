@@ -1,0 +1,12 @@
+ugm_contact_us 2.1 official version features Project (2014-05-01)
+=================================================
+1. Fix newly installed modules have lost ip field.
+2. increase the display background "Contact Us / Management" ip field.
+
+ugm_contact_us 2.0 official version features Project (2013-12-18)
+=================================================
+1. backend interface comprehensive rewrite, set into BootStrap interface
+2. increase "Liaison Unit"
+3. ways to change the mail notification (using the built-in xoopsMailer xoops objects),
+4. Join xoops "Token" xoops built security mechanisms and the use of graphical authentication,
+

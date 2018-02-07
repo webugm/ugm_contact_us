@@ -1,0 +1,99 @@
+<{$css}>
+<{$DBV.js_code}>
+<div>
+  <{$toolbar}>
+
+  <{if $DBV.ugm_contact_us_info}>
+    <div class="alert alert-warning alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <{$DBV.ugm_contact_us_info}>
+    </div>
+  <{/if}>
+
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title"><{$DBV.form_head.title}></h3>
+    </div>
+    <div class="panel-body">
+      <form action="<{$DBV.form_head.action}>" method="<{$DBV.form_head.method}>" id="<{$DBV.form_head.id}>" class="<{$DBV.form_head.class}>" enctype="<{$DBV.form_head.enctype}>">
+
+        <{$DBV.form_Token}>
+
+        <{foreach from=$DBV.form_body key=key item=rows}>
+          <{if $key === "hidden"}>
+            <{foreach from=$rows  item=row}>
+              <input type="hidden" name="<{$row.name}>" value="<{$row.value}>">
+            <{/foreach}>
+          <{else}>
+            <div class="row">
+              <{foreach from=$rows  item=row}>
+
+                <div class="col-sm-<{$row.width}>">
+                  <div class="form-group">
+                    <{if $row.type == "text"}>
+                      <label><{$row.title}></label>
+                      <input type="text" class="form-control<{if $row.validator}> <{$row.validator}><{/if}>" id="<{$row.name}>" name="<{$row.name}>" value="<{$row.value}>" placeholder="<{$row.placeholder}>">
+
+                    <{elseif  $row.type == "Wdate"}>
+                      <label><{$row.title}></label>
+                      <input type="text" name="<{$row.name}>"  value="<{$row.value}>" id="<{$row.name}>"
+                    onClick="WdatePicker({isShowClear:<{$row.isShowClear}>,readOnly:<{$row.readOnly}>})" class="form-control<{if $row.validator}> <{$row.validator}><{/if}>" placeholder="<{$row.placeholder}>">
+
+
+                    <{elseif  $row.type == "textarea"}>
+                      <label><{$row.title}></label>
+                      <textarea name="<{$row.name}>" class="form-control<{if $row.validator}> <{$row.validator}><{/if}>" placeholder="<{$row.placeholder}>" style="height:200px;"><{$row.value}></textarea>
+
+                    <{elseif  $row.type == "checkbox"}>
+
+                      <label style='display:block;'><{$row.title}></label>
+                      <{foreach from=$row.value item=checkbox}>
+                        <label for="<{$checkbox.label}>">
+                          <input type="checkbox" name="<{$row.name}>" value="<{$checkbox.value}>" id="<{$checkbox.label}>" <{if $checkbox.checked}> checked<{/if}>><{$checkbox.value}>
+                        </label>&nbsp;&nbsp;&nbsp;&nbsp;
+
+                      <{/foreach}>
+
+                    <{elseif  $row.type == "select"}>
+
+                      <label><{$row.title}></label>
+                      <select name="<{$row.name}>" id="<{$row.name}>" class="form-control">
+                        <{foreach from=$row.value item=select}>
+                          <option value="<{$select.value}>" <{if $select.selected}> selected<{/if}>><{$select.title}></option>
+                        <{/foreach}>
+                      </select>
+
+
+                    <{/if}>
+                  </div>
+
+                </div>
+
+              <{/foreach}>
+            </div>
+          <{/if}>
+
+
+        <{/foreach}>
+
+        
+        <{* 我不是機器人 *}>
+        <{if $DBV.RecaptchaJs}>
+          <div id="message">
+            <{$DBV.RecaptchaJs}>       
+            <input type="text" name="recaptcha" value="" class="validate[required]" id="recaptcha" readonly style="opacity: 0.000001;height:1px;">
+            <div id="my-widget" align="" class="g-recaptcha" ></div> 
+          </div>
+        <{/if}>
+
+        <button type="submit" class="btn btn-primary">送出</button>
+      </form>
+
+
+    </div>
+  </div>
+
+</div>
+
+
+

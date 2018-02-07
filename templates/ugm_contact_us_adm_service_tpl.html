@@ -1,0 +1,56 @@
+<link rel="stylesheet" type="text/css" media="screen" href="<{$xoops_url}>/modules/tadtools/bootstrap/css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="<{$xoops_url}>/modules/tadtools/bootstrap/css/bootstrap-responsive.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="<{$xoops_url}>/modules/tadtools/css/xoops_adm.css" />
+
+<{if $now_op=="op_list"}>
+  <{$jquery_path}>
+  <script>
+    function op_delete_func(service_sn){
+      var sure = window.confirm("<{$smarty.const._TAD_DEL_CONFIRM}>");
+      if (!sure)  return;
+      location.href="service.php?op=op_delete&service_sn=" + service_sn;
+    }
+  </script>
+
+  <div class="text-right">
+    <a href="service.php?op=op_form"  class="btn btn-info"><{$smarty.const._TAD_ADD}></a>
+  </div>
+
+  <table class="table table-striped table-bordered table-hover">
+    <tr>
+      <th><{$smarty.const._MI_UGMCONTACUS_ADMENU2}></th>
+      <th><{$smarty.const._TAD_FUNCTION}></th>
+    </tr>
+    <{if $all_content}>
+      <{foreach from=$all_content item=s}>
+        <tr>
+          <td><{$s.service_name}></td>
+          <td>
+            <a href="service.php?op=op_form&service_sn=<{$s.service_sn}>" class="btn btn-success btn-small"><{$smarty.const._TAD_EDIT}></a>
+            <a href="javascript:op_delete_func(<{$s.service_sn}>);" class="btn btn-danger btn-small"><{$smarty.const._TAD_DEL}></a>
+          </td>
+        </tr>
+      <{/foreach}>
+    <{/if}>
+  </table>
+  <{$bar}>
+
+
+<{elseif $now_op=="op_form"}>
+  <{$formValidator_code}>
+  <form action="service.php" method="post" id="myForm" >
+    <div class="row-fluid">
+      <!--服務項目-->
+      <label class="span1"><{$smarty.const._MI_UGMCONTACUS_ADMENU2}></label>
+      <div class="span4">
+        <input type="text" name="service_name"  value="<{$service_name}>" id="service_name" class="validate[required] span12">
+      </div>
+      <div class="span1">
+        <input type="hidden" name="service_sn" value="<{$service_sn}>">
+        <input type="hidden" name="op" value="update_service">
+        <button type="submit" class="btn btn-primary"><{$smarty.const._TAD_SAVE}></buton>
+      </div>
+    </div>
+  </form>
+
+<{/if}>
